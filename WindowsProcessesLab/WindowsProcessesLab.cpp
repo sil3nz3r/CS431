@@ -2,6 +2,7 @@
     Author:     Tu Vu
     Professor:  Gerald Doutt
     Class:      CS431
+    Assignment: Lab 1 - Windows Processes
 */
 
 #include <windows.h>
@@ -47,7 +48,7 @@ void main()
         else if (input == "n") wcscat_s(windir, TEXT("\\netstat.exe"));
         else if (input == "p") wcscat_s(windir, TEXT("\\mspaint.exe"));
         else if (input == "s") wcscat_s(windir, TEXT("\\systeminfo.exe"));
-        else if (input == "n") wcscat_s(windir, TEXT("\\notepad.exe"));
+        else if (input == "o") wcscat_s(windir, TEXT("\\notepad.exe"));
         else if (input == "e") return;
         else
         {
@@ -84,8 +85,11 @@ void startApp(const TCHAR* appPath)
         printf("CreateProcess failed (%d). \n", GetLastError());
         return;
     }
-    WaitForSingleObject(pi.hProcess, INFINITE);
-    printf("App Launched...\n");
+    else
+    {
+        printf("App Launched...\n");
+    }
+    WaitForSingleObject(pi.hProcess, INFINITE);    
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
     printf("Process terminates...\n");
@@ -104,6 +108,6 @@ void showMenu()
         << setw(26) << left << "n - for netstat.exe" << endl
         << setw(26) << left << "p - for mspaint.exe" << endl
         << setw(26) << left << "s - for systeminfo.exe" << endl
-        << setw(26) << left << "n - for notepad.exe" << endl
+        << setw(26) << left << "o - for notepad.exe" << endl
         << setw(26) << left << "e - to exit" << endl;
 }
