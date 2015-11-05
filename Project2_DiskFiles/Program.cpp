@@ -20,8 +20,10 @@ void main()
 {
     // Declare necessary variables
     DWORD count;
-    char data[max_capacity] = { 0 };
-    char prompt[] = ">>> How many files do you want to generate?\n";
+    char answer[max_capacity] = { 0 };
+    char promptInstruction[] = "*** INSTRCTIONS: Enter 'done' when you are done with a file\n Enter 'exit' when you want to display output\n";
+    char promptAsk[] = "How many files do you want to generate?\n";
+    char promptInpu[] = "Enter some text. When you are done, enter 'done'.\n";
     HANDLE file, input, output;
 
     // Initialize I/O handles
@@ -29,8 +31,15 @@ void main()
     output = GetStdHandle(STD_OUTPUT_HANDLE);
 
     // Prompt the user and read file
-    WriteFile(output, prompt, sizeof(prompt) - 1, &count, NULL);
-    ReadFile(input, data, max_capacity, &count, NULL);
+    WriteFile(output, promptInstruction, sizeof(promptInstruction) - 1, &count, NULL);
+    WriteFile(output, promptAsk, sizeof(promptAsk) - 1, &count, NULL);
+    ReadFile(input, answer, max_capacity, &count, NULL);
+
+    while (strncmp(answer, "quit", 4) != 0)
+    {
+        WriteFile(file, answer, count, &count, NULL);
+        ReadFile(input, answer, max_capacity, &count, NULL);
+    }
 
     // Get the directory of the current process
     char myCurrentDir[max_capacity];
@@ -46,7 +55,7 @@ void record(const string & currentDir)
     // Declare necessary variables
     DWORD count;
     char data[max_capacity] = { 0 };
-    char prompt[] = ">>> Enter some text. When you are done, enter quit.\n";
+    char prompt[] = ">>> Enter some text. When you are done, enter 'done'.\n";
     HANDLE file, input, output;
 
     // Initialize handles and the necessary files
