@@ -1,3 +1,0 @@
-insert into the pizza file
-I like pepperoni pizza
-I also like supreme pizza, because it has a lot of stuffs

@@ -76,7 +76,7 @@ void startProgram(const string & selectedOption)
     char myCurrentDir[max_capacity];
     GetCurrentDirectory(max_capacity, myCurrentDir);
 
-    // 
+    // Determine correct input before proceeding
     if (selectedOption == "h") strcat_s(myCurrentDir, TEXT("\\hamburger.txt"));
     else if (selectedOption == "p") strcat_s(myCurrentDir, TEXT("\\pizza.txt"));
     else if (selectedOption == "s") strcat_s(myCurrentDir, TEXT("\\soup.txt"));
@@ -85,6 +85,8 @@ void startProgram(const string & selectedOption)
         cout << invalidInputMsg << endl;
         return;
     }
+
+    // Launch record and playback on the desired file
     record(myCurrentDir);
     playback(myCurrentDir);
 }
@@ -99,16 +101,25 @@ DWORD getCreationDisposition(const string & fileDir)
 {
     if (isFileExisted(fileDir))
     {
+        // Notify that the file has already exist and show the current content
+        cout << ">>> The file has already exists.\n";
+        playback(fileDir);
+
+        // Awaiting the correct input from user
         while (true)
         {
             string input;
-            cout << ">>> The file has already exists.\n";
-            playback(fileDir);
             cout << ">>> What do you want to do? 'o' to overwrite or 'i' to insert.\n";
             cin >> input;
 
-            if (input == "o") { return CREATE_ALWAYS; }
-            else if (input == "i") { return OPEN_EXISTING; }
+            if (input == "o")
+            {
+                return CREATE_ALWAYS;
+            }
+            else if (input == "i")
+            {
+                return OPEN_EXISTING;
+            }
             else
             {
                 cout << invalidInputMsg << endl;
