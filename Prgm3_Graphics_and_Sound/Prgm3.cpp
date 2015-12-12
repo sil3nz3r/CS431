@@ -39,7 +39,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     // Create the window
     hWindow = CreateWindow(szAppName, szAppName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+        CW_USEDEFAULT, 800, 600, NULL, NULL, hInstance, NULL);
 
     // Show and update the window
     ShowWindow(hWindow, iCmdShow);
@@ -60,9 +60,9 @@ LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
     static int cxClient, cyClient;
     HDC         hdc;
     PAINTSTRUCT ps;
-    // typedef struct tagRECT { LONG left; LONG top; LONG right; LONG bottom;} RECT;
-    RECT smallrect = {150, 150, 550, 350};
-    RECT bigrect = {100, 100, 600, 400};
+    // RECT { LONG left; LONG top; LONG right; LONG bottom;}
+    RECT smallrect = { 150, 150, 550, 350 };
+    RECT bigrect = { 100, 100, 600, 400 };
     HPEN hredpen, hbluepen, hgreenpen;
     HBRUSH hyellowbrush, hfunkybrush;
 
@@ -81,7 +81,7 @@ LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
 
         hbluepen = CreatePen(PS_SOLID, 2, RGB(0, 0, 255));
         hredpen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
-        hgreenpen = CreatePen(PS_SOLID, 2, RGB(0,255,0));
+        hgreenpen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
         hyellowbrush = CreateSolidBrush(RGB(255, 255, 0));
         hfunkybrush = CreateHatchBrush(HS_CROSS, RGB(150, 80, 200));
 
@@ -111,7 +111,7 @@ LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         // Exit the application
         PlaySound(TEXT("APPLAUSE.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-        MessageBox(NULL, TEXT("Thanks for using the program. Bye!"), TEXT("Good Bye"), MB_ICONEXCLAMATION);        
+        MessageBox(NULL, TEXT("Thanks for using the program. Bye!"), TEXT("Good Bye"), MB_ICONEXCLAMATION);
         PostQuitMessage(0);
         return 0;
     }
