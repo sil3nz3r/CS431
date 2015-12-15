@@ -1,10 +1,10 @@
 
-// Skeleton Application
-// Include Files
+/*
+    Author:     Tu Vu
+    Professor:  Gerald Doutt
+    Class:      CS431
+*/
 #include "Prgm3.h"
-#include <math.h>
-#define NUM 1000
-#define TwoPi (2 * 3.1415926)
 
 // Global Function Declarations
 LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
     RECT smallrect = { 150, 150, 550, 350 };
     RECT bigrect = { 100, 100, 600, 400 };
     HPEN hredpen, hbluepen, hgreenpen;
-    HBRUSH hyellowbrush, hfunkybrush;
+    HBRUSH hYellowBrush, hVerticalBrush, hGreenBrush;
 
     TCHAR szBuffer[50];
     static int iLength;
@@ -82,25 +82,28 @@ LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
         hbluepen = CreatePen(PS_SOLID, 2, RGB(0, 0, 255));
         hredpen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
         hgreenpen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-        hyellowbrush = CreateSolidBrush(RGB(255, 255, 0));
-        hfunkybrush = CreateHatchBrush(HS_CROSS, RGB(150, 80, 200));
+        hYellowBrush = CreateSolidBrush(RGB(255, 255, 0));
+        hGreenBrush = CreateSolidBrush(RGB(0, 204,0));
+        hVerticalBrush = CreateHatchBrush(HS_VERTICAL, RGB(0, 150, 150));
 
-        FillRect(hdc, &bigrect, hyellowbrush);
-        FillRect(hdc, &smallrect, hfunkybrush);
+        FillRect(hdc, &bigrect, hGreenBrush);
+        FillRect(hdc, &smallrect, hVerticalBrush);
 
-        SelectObject(hdc, hgreenpen);
-        SetBkColor(hdc, RGB(200, 200, 200));
+        SetBkColor(hdc, RGB(204, 255, 204));
+
+        SelectObject(hdc, hbluepen);
         iLength = wsprintf(szBuffer, TEXT("What is this?"));
         TextOut(hdc, 250, 250, szBuffer, iLength);
+
         SelectObject(hdc, hbluepen);
         iLength = wsprintf(szBuffer, TEXT("A window, of course"));
-
         TextOut(hdc, 320, 310, szBuffer, iLength);
 
         ReleaseDC(hWindow, hdc);
 
-        DeleteObject(hyellowbrush);
-        DeleteObject(hfunkybrush);
+        DeleteObject(hYellowBrush);
+        DeleteObject(hGreenBrush);
+        DeleteObject(hVerticalBrush);
         DeleteObject(hbluepen);
         DeleteObject(hredpen);
         DeleteObject(hgreenpen);
